@@ -1,0 +1,50 @@
+import java.util.*;
+
+class main{
+	static String[] dt = {"WNE","NES","ESW","SWN"};
+	public static void main(String[] args){
+		Scanner sc = new Scanner(System.in);
+		int maxY=sc.nextInt(),maxX=sc.nextInt();
+		int[][] table = new int[51][51];
+		while(sc.hasNext()){
+			int x=sc.nextInt(),y=sc.nextInt(),f;
+			String d = sc.next(),input=sc.next();
+			int index=getIndex(d);
+			boolean boo =false,out=true;
+			for(int i=0;i<input.length();i++){
+				if(input.charAt(i)=='R'){
+					d=String.valueOf(dt[index].charAt(2));
+					index=getIndex(d);
+				}
+				else if(input.charAt(i)=='L'){
+					d=String.valueOf(dt[index].charAt(0)); 
+					index=getIndex(d);
+				}else{
+					if(index<2) f=1;
+					else f=-1;
+					if((d.equals("N") || d.equals("S") )&& out)
+						y+=f;
+					else if((d.equals("E") || d.equals("W")) && out)
+						x+=f;	
+					if(table[x][y]==1){
+						if(d.equals("N") || d.equals("S"))
+						y-=f;
+						else if(d.equals("E") || d.equals("W"))
+						x-=f;
+						out=false;
+					}
+					if(x>=maxX || y>=maxY){table[x][y]=1;boo=true;break;}
+				}
+			}
+			if(boo) System.out.println(x+" "+y+" "+d+" LOST");
+			else System.out.println(x+" "+y+" "+d);
+		}
+	}
+	static int getIndex(String d){
+		for(int i=0;i<4;i++){
+			if(d.charAt(0)==dt[i].charAt(1))
+				return i;
+		}
+		return -1;
+	}
+}
