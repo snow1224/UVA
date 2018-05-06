@@ -1,0 +1,38 @@
+import java.util.*;
+
+class main{
+	public static void main(String[] args){
+		Scanner sc = new Scanner(System.in);
+		int f=0;
+		while(sc.hasNext()){
+			int col=sc.nextInt(),row=sc.nextInt();
+			if(col==0 && row==0) break;
+			int[][] table = new int[102][102];
+			for(int i=0;i<col;i++){           //將整個區域往右下移，並掃描地雷做計算
+				String s = sc.next();
+				for(int j=0;j<s.length();j++){
+					if(s.charAt(j)=='*'){
+						table[i+1][j+1]=-1;
+						for(int x=i;x<i+3;x++){
+							for(int y=j;y<j+3;y++){
+								if(table[x][y]!=-1) table[x][y]++;
+							}
+						}	
+					}
+				}
+			}
+			if(f!=0) System.out.println();
+			++f;
+			System.out.println("Field #"+f+":");
+			for(int i=1;i<=col;i++){
+				for(int j=1;j<=row;j++){
+					if(table[i][j]==-1)
+						System.out.print("*");
+					else
+						System.out.print(table[i][j]);
+				}
+				System.out.println();
+			}
+		}
+	}
+}
