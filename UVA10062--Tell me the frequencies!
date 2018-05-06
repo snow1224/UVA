@@ -1,0 +1,40 @@
+import java.util.*;
+
+class main{
+	public static void main(String[] args){
+		Scanner sc = new Scanner(System.in);
+		int cases=0;
+		while(sc.hasNextLine()){
+			if(cases!=0) System.out.println();
+			cases++;
+			String s=sc.nextLine();
+			char[] c = s.toCharArray();
+			ArrayList<Box> ls = new ArrayList<Box>();
+			for(int i=0;i<c.length;i++){
+				boolean contain=true;
+				for(int j=0;j<ls.size();j++)
+					if(ls.get(j).ch==c[i]){
+						ls.get(j).count++;
+						contain=false;
+						break;
+					}
+				if(contain) ls.add(new Box(c[i]));
+			}
+			for(int i=0;i<ls.size()-1;i++)
+				for(int j=0;j<ls.size()-1;j++)
+					if(ls.get(j).count>ls.get(j+1).count ||(ls.get(j).count==ls.get(j+1).count && ls.get(j).ch<ls.get(j+1).ch)){
+						Box tmp=ls.get(j);
+						ls.set(j,ls.get(j+1));
+						ls.set(j+1,tmp);
+					}
+			for(int i=0;i<ls.size();i++){
+				System.out.println((int)ls.get(i).ch+" "+ls.get(i).count);
+			}
+		}
+	}
+}
+class Box{
+	char ch;
+	int count=1;
+	Box(char ch){this.ch=ch;} 
+}
