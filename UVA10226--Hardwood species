@@ -1,0 +1,41 @@
+import java.util.*;
+
+class main{
+	public static void main(String[] args){
+		Scanner sc = new Scanner(System.in);
+		int cases=Integer.valueOf(sc.nextLine());
+		sc.nextLine();
+		while(sc.hasNextLine()){
+			ArrayList<Tree> ls = new ArrayList<Tree>();
+			int sum=0;
+			while(sc.hasNextLine()){
+				String input=sc.nextLine();
+				if(input.equals("")) break;
+				boolean contain=true;
+				for(int i=0;i<ls.size();i++){
+					if(ls.get(i).name.equals(input)){
+						ls.get(i).count++;
+						contain=false;
+						break;	
+					}
+				}
+				if(contain) ls.add(new Tree(input));
+				sum++;
+			}
+			Collections.sort(ls);
+			for(int i=0;i<ls.size();i++){
+				System.out.printf("%s %.4f\r\n",ls.get(i).name,(float)ls.get(i).count/(float)sum*100);
+			}
+			if(cases-- ==1) break;
+			else	System.out.println();
+		}
+	}
+}
+class Tree implements Comparable<Tree>{
+	String name;
+	int count=1;
+	Tree(String name){this.name=name;}
+	public int compareTo(Tree o){
+		return this.name.compareTo(o.name); //directory sort
+	}
+}
