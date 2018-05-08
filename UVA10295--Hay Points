@@ -1,0 +1,31 @@
+import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+
+class main{
+	public static void main(String[] args){
+		Scanner sc = new Scanner(System.in);
+		Map<String,Integer> dt = new HashMap<String,Integer>();
+		int nd=sc.nextInt(),n=sc.nextInt();
+		for(int i=0;i<nd;i++){
+			String in = sc.next();
+			dt.put(in,sc.nextInt());
+		}
+		sc.nextLine();
+		while(n-- >0){
+			int sum=0;
+			String str = sc.nextLine();
+			while(!str.equals(".")){
+				
+				String[] s = str.split(" ");
+				for(int i=0;i<s.length;i++){
+					if(dt.containsKey(s[i])){
+						sum+=dt.get(s[i]);
+					}
+				}
+				str=sc.nextLine();
+			}
+			System.out.println(sum);
+		}
+	}
+}
